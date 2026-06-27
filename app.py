@@ -26,8 +26,14 @@ source = st.sidebar.selectbox(
 
 search_query = st.sidebar.text_input(
     "Recherche (nom d'entreprise / produit)",
-    placeholder="ex: Boursorama, TEMU, Paris...",
+    placeholder="ex: Burger King, Boursorama, Netflix...",
 )
+
+if source == "Amazon":
+    st.sidebar.warning(
+        "Le scraping Amazon n'est pas disponible en démo : "
+        "il nécessite une authentification par cookies (connexion manuelle préalable)."
+    )
 
 max_reviews = st.sidebar.slider("Nombre max d'avis", 1, 50, 5)
 
