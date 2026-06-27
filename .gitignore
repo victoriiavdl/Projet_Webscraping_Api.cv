@@ -1,0 +1,25 @@
+# Données sensibles
+liste_proxy.csv
+proxy.xlsx
+cookies.pkl
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environnement
+.env
+*.env
