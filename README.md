@@ -1,8 +1,8 @@
 # ReviewBot - Réponse automatique aux avis clients
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://reviewbot.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-portfolio-cleanup-tzw3vu-kadmdkzuw7sjqngj9trncd.streamlit.app/)
 
-> **Accéder à l'application :** [https://reviewbot.streamlit.app](https://reviewbot.streamlit.app)
+> **Accéder à l'application :** [https://app-portfolio-cleanup-tzw3vu-kadmdkzuw7sjqngj9trncd.streamlit.app/](https://app-portfolio-cleanup-tzw3vu-kadmdkzuw7sjqngj9trncd.streamlit.app/)
 
 ## Présentation
 
