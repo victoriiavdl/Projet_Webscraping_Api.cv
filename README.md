@@ -1,73 +1,75 @@
-# Projet_Webscraping_Api
+# ReviewBot - Réponse automatique aux avis clients
 
-## Auteurs :
-- FOGUE FEUSSI Franck Jorel
-- VIDAL Victoria
-- AIT SAID Melina 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://reviewbot.streamlit.app)
 
-## Objectif du projet
-Le but du projet est de concevoir un système capable de générer automatiquement des
-propositions de réponses personnalisées aux avis clients collectés sur différentes plateformes en ligne.
+> **Accéder à l'application :** [https://reviewbot.streamlit.app](https://reviewbot.streamlit.app)
+
+## Présentation
+
+**ReviewBot** est un outil de web scraping et de NLP qui collecte automatiquement les avis clients sur les principales plateformes en ligne, puis génère des réponses personnalisées adaptées au ton et au sentiment de chaque avis.
+
+L'application permet de :
+- **Extraire** les avis et notes depuis 5 plateformes (Trustpilot, Yelp, Google Play Store, Amazon, Google Maps)
+- **Analyser** automatiquement le sentiment et la langue de chaque avis
+- **Générer** des réponses personnalisées grâce à un modèle de langage (GPT4All) ou des templates multilingues
+- **Exporter** les résultats en CSV pour une exploitation ultérieure
 
 ## Plateformes supportées
-- **Trustpilot** — Avis entreprises
-- **Yelp** — Avis commerces locaux
-- **Google Play Store** — Avis applications
-- **Amazon** — Avis produits
-- **Google Maps** — Avis lieux / établissements
 
-## Installation du projet
-1. **Prérequis**
-- Python >= 3.12
-- Git Bash (ou terminal équivalent)
-- Google Chrome (pour Selenium)
+| Plateforme | Type d'avis | Méthode |
+|------------|-------------|---------|
+| **Trustpilot** | Avis entreprises | Recherche par nom + pagination |
+| **Yelp** | Avis commerces locaux | Recherche par nom + pagination |
+| **Google Play Store** | Avis applications | Recherche par nom + scroll infini |
+| **Amazon** | Avis produits | Recherche par mot-clé + pagination (cookies requis) |
+| **Google Maps** | Avis lieux / établissements | Extraction par URL + scroll infini |
 
-2. **Cloner le projet**
+## Structure du projet
+
+```
+projet_webscraping_api/
+├── app.py                                      # Interface Streamlit
+├── scraping.ipynb                              # Notebook d'exploration
+├── functions/
+│   ├── API/
+│   │   └── main.py                             # API FastAPI (endpoints REST)
+│   ├── generator/
+│   │   └── response_generator.py               # Génération de réponses (NLP)
+│   └── scrapping/
+│       ├── functions_trustpilot.py              # Scraping Trustpilot
+│       ├── functions_yelp.py                    # Scraping Yelp
+│       ├── functions_play_store.py              # Scraping Google Play Store
+│       ├── functions_amazon.py                  # Scraping Amazon
+│       └── functions_google_reviews.py          # Scraping Google Maps
+├── pyproject.toml                              # Configuration & dépendances
+└── .gitignore
+```
+
+## Stack technique
+
+- **Python 3.12+**
+- **Streamlit** — interface web interactive
+- **Selenium** — web scraping dynamique (navigation, scroll, pagination)
+- **FastAPI** — API REST pour intégration externe
+- **Transformers (HuggingFace)** — analyse de sentiment (`nlptown/bert-base-multilingual-uncased-sentiment`)
+- **GPT4All** — génération de réponses en local (modèle `orca-mini-3b`)
+- **langdetect** — détection automatique de la langue
+- **Pandas** — manipulation des données
+
+## Installation locale
+
 ```bash
 git clone https://github.com/victoriiavdl/projet_webscraping_api.cv.git
 cd projet_webscraping_api.cv
-```
 
-3. **Créer un environnement virtuel**
-```bash
-pip install virtualenv
-virtualenv .venv
-```
-
-Activer l'environnement :
-```bash
-# Windows
-source .venv/Scripts/activate
-
-# Linux / MacOS
-source .venv/bin/activate
-```
-
-4. **Installer les dépendances**
-```bash
+# Avec poetry (recommandé)
 poetry install
-```
-
-## Utilisation
-
-### Interface Streamlit (recommandé pour tester)
-```bash
 streamlit run app.py
-```
-Ouvrez ensuite votre navigateur sur l'URL affichée (par défaut `http://localhost:8501`).
 
-L'interface permet de :
-- Choisir une plateforme source
-- Rechercher une entreprise / un produit
-- Extraire les avis en temps réel
-- Générer des réponses automatiques
-- Exporter les résultats en CSV
-
-### API FastAPI
-```bash
+# Ou lancer l'API FastAPI
 uvicorn functions.API.main:app
 ```
-Documentation interactive : `http://127.0.0.1:8000/docs`
 
-### Note pour Amazon
-Le scraping Amazon nécessite une connexion manuelle préalable via `save_cookies()` dans le notebook `scraping.ipynb`. Cette étape ne doit être réalisée qu'une seule fois.
+## Contexte
+
+Ce projet a été réalisé dans le cadre d'un cours de **Web Scraping & API** (Master MOSEF, Sorbonne). L'objectif était de concevoir un système complet de collecte d'avis clients par web scraping, couplé à un module de génération automatique de réponses par NLP.
